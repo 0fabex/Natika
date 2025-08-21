@@ -412,7 +412,7 @@ textarea.materialize-textarea:focus:not([readonly]) {
       }
       
       &::before {
-        background-color: rgba(221, 221, 221, 0.5);
+        background-color: rgba(237, 199, 142, 0.829);
         content: "";
         top: 0;
         right: 0;
