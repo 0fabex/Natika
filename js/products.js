@@ -55,12 +55,13 @@ function renderProducts(products) {
                 <div class="content">
                     <img src="${produto.imagem || 'img/placeholder.jpg'}" alt="${produto.titulo || 'Produto sem nome'}" loading="lazy">
                     ${isNew ? '<span class="new-badge">Novo</span>' : ''}
-                    <h5><a href="sobreprod.html?id=${produto.id || ''}">${produto.titulo || 'Produto sem nome'}</a></h5>                    <h6 class="price">${formatPrice(preco)}</h6>
+                    <h5><a href="sobreprod.html?id=${produto.id || ''}">${produto.titulo || 'Produto sem nome'}</a></h5>
+                    <h6 class="price">${formatPrice(preco)}</h6>
                     <div class="${estoqueClass}">${estoqueText}</div>
                     <div class="rating">
                         ${renderRating(produto.avaliacao || 0)}
                     </div>
-                    <button class="add-to-cart" data-id="${produto.id}">
+                    <button class="add-to-cart" data-id="${produto.id}" data-name="${produto.titulo}" data-price="${preco}" data-image="${produto.imagem || 'img/placeholder.jpg'}">
                         <i class="fa fa-shopping-cart"></i> Adicionar
                     </button>
                 </div>
