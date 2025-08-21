@@ -1,235 +1,258 @@
+[file name]: cart.html
+[file content begin]
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-	<meta charset="UTF-8">
-	<title>Matjar - Minimalist UI eCommerce Mobile Template</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1  maximum-scale=1 user-scalable=no">
-	<meta name="mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-touch-fullscreen" content="yes">
-	<meta name="HandheldFriendly" content="True">
-
-	<link rel="stylesheet" href="css/materialize.css">
-	<link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/normalize.css">
-	<link rel="stylesheet" href="css/owl.carousel.css">
-	<link rel="stylesheet" href="css/owl.theme.css">
-	<link rel="stylesheet" href="css/owl.transitions.css">
-	<link rel="stylesheet" href="css/fakeLoader.css">
-	<link rel="stylesheet" href="css/magnific-popup.css">
-	<link rel="stylesheet" href="css/style.css">
-	
-	<link rel="shortcut icon" href="img/favicon.png">
-
+    <meta charSet="utf-8" />
+    <title>Carrinho de Compras | Natika</title>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="description" content="Seu carrinho de compras Natika" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="icon" type="image/png" sizes="16x16"  href="/favicons/favicon-16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32"  href="/favicons/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+    <link rel="icon" type="image/png" sizes="96x96"  href="/favicons/apple-touch-icon-96x96.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="/favicons/android-icon-192x192.png">
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="stylesheet" href="css/materialize.css">
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/owl.theme.css">
+    <link rel="stylesheet" href="css/owl.transitions.css">
+    <link rel="stylesheet" href="css/fakeLoader.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="img/favicon.png">
 </head>
 <body>
+    <div class="navbar-top">
+        <div class="side-nav-panel-left">
+            <a href="#" data-activates="slide-out-left" class="side-nav-left"><i class="fa fa-bars"></i></a>
+        </div>
+        <div class="site-brand">
+            <a href="index.html">
+                <img src="img/logo.png" alt="Natika Logo" class="nav-logo">
+            </a>
+        </div>
+        <div class="side-nav-panel-right">
+            <a href="carrinho.html" class="side-nav-right"><i class="fa fa-shopping-basket"></i><span id="cart-count">0</span></a>
+        </div>
+    </div>
+    <div class="side-nav-panel-left">
+        <ul id="slide-out-left" class="side-nav side-nav-panel collapsible">
+            <li class="profil">
+                <img src="img/profile.jpg" alt="">
+                <h2>Usuário Fulano</h2>
+                <h6>Cliente Vip</h6>
+            </li>
+            <li class="li-top"><a href="index.html"><i class="fa fa-home"></i>Home</a></li>
+            <li><a href="produtos.html"><i class="fa fa-shopping-basket"></i>Catálogo de Produtos</a></li>
+            <li><a href="carrinho.html"><i class="fa fa-shopping-cart"></i>Carrinho de Compras</a></li>
+            <li><a href="checkout.html"><i class="fa fa-send"></i>Pagamento</a></li>
+            <li><a href="blog.html"><i class="fa fa-bold"></i>Blog</a></li>
+            <li><a href="avaliacoes.html"><i class="fa fa-support"></i>Avaliações</a></li>
+            <li><a href="sobrenos.html"><i class="fa fa-user"></i>Sobre Nós</a></li>
+            <li><a href="contact.html"><i class="fa fa-envelope-o"></i>Contato</a></li>
+            <li><a href="login.html"><i class="fa fa-sign-in"></i>Login</a></li>
+            <li><a href="cadastrar.html"><i class="fa fa-user-plus"></i>Cadastre-se</a></li>
+        </ul>
+    </div>
 
-	<!-- navbar top -->
-	<div class="navbar-top">
-		<div class="side-nav-panel-left">
-			<a href="#" data-activates="slide-out-left" class="side-nav-left"><i class="fa fa-bars"></i></a>
-		</div>
-		<!-- site brand	 -->
-		<div class="site-brand">
-			<a href="index.html"><h1>MATJAR</h1></a>
-		</div>
-		<!-- end site brand	 -->
-		<div class="side-nav-panel-right">
-			<a href="cart.html" class="side-nav-right"><i class="fa fa-shopping-basket"></i><span>2</span></a>
-		</div>
-	</div>
-	<!-- end navbar top -->
+    <div class="pages section">
+        <div class="container">
+            <div class="pages-head">
+                <h3>MEU CARRINHO</h3>
+            </div>
+            
+            <div id="cart-items-container">
+                <!-- Itens do carrinho serão carregados aqui -->
+                <div class="empty-cart" id="empty-cart-message">
+                    <i class="fa fa-shopping-basket"></i>
+                    <h4>Seu carrinho está vazio</h4>
+                    <p>Adicione produtos incríveis ao seu carrinho!</p>
+                    <a href="produtos.html" class="button-default">Continuar Comprando</a>
+                </div>
+            </div>
+            
+            <div class="cart-summary" id="cart-summary" style="display: none;">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span id="subtotal">R$ 0,00</span>
+                </div>
+                <div class="summary-row">
+                    <span>Frete</span>
+                    <span id="shipping">R$ 0,00</span>
+                </div>
+                <div class="summary-row summary-total">
+                    <span>Total</span>
+                    <span id="total">R$ 0,00</span>
+                </div>
+                
+                <div class="center" style="margin-top: 20px;">
+                    <a href="checkout.html" class="button-default" id="checkout-btn">Finalizar Compra</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<!-- side nav left-->
-	<div class="side-nav-panel-left">
-		<ul id="slide-out-left" class="side-nav side-nav-panel collapsible">
-			<li class="profil">
-				<img src="img/profile.jpg" alt="">
-				<h2>John Doe</h2>
-				<h6>Mobile Developer</h6>
-			</li>
-			<li class="li-top"><a href="index.html"><i class="fa fa-home"></i>Home</a></li>
-			<li><a href="product.html"><i class="fa fa-shopping-basket"></i>Product List</a></li>
-			<li><a href="shop-single.html"><i class="fa fa-list-alt"></i>Product Details</a></li>
-			<li><a href="cart.html"><i class="fa fa-shopping-cart"></i>Shopping Cart</a></li>
-			<li><a href="checkout.html"><i class="fa fa-send"></i>Checkout</a></li>
-			<li><a href="blog.html"><i class="fa fa-bold"></i>Blog</a></li>
-			<li><a href="error404.html"><i class="fa fa-hourglass-half"></i>404</a></li>		
-			<li><a href="testimonial.html"><i class="fa fa-support"></i>Testimonial</a></li>
-			<li><a href="about-us.html"><i class="fa fa-user"></i>About Us</a></li>
-			<li><a href="contact.html"><i class="fa fa-envelope-o"></i>Contact Us</a></li>
-			<li><a href="login.html"><i class="fa fa-sign-in"></i>Login</a></li>
-			<li><a href="register.html"><i class="fa fa-user-plus"></i>Register</a></li>
-		</ul>
-	</div>
-	<!-- end side nav left-->
-	
-	<!-- cart -->
-	<div class="cart pages section">
-		<div class="container">
-			<div class="pages-head">
-				<h3>CART</h3>
-			</div>
-			<div class="cart-content-product">
-				<div class="row">
-					<div class="col s12">
-						<div class="cart-details">
-							<div class="col s5">
-								<div class="cart-product">
-									<h5>Image</h5>
-								</div>
-							</div>
-							<div class="col s7">
-								<div class="cart-product">
-									<img src="img/cart.png" alt="">
-								</div>
-							</div>
-						</div>
-						<div class="cart-details">
-							<div class="col s5">
-								<div class="cart-product">
-									<h5>Name</h5>
-								</div>
-							</div>
-							<div class="col s7">
-								<div class="cart-product">
-									<a href="">Glass</a>
-								</div>
-							</div>
-						</div>
-						<div class="cart-details">
-							<div class="col s5">
-								<div class="cart-product">
-									<h5>Quantity</h5>
-								</div>
-							</div>
-							<div class="col s7">
-								<div class="cart-product">
-									<input type="text" value="1">
-								</div>
-							</div>
-						</div>
-						<div class="cart-details">
-							<div class="col s5">
-								<div class="cart-product">
-									<h5>Unit Price</h5>
-								</div>
-							</div>
-							<div class="col s7">
-								<div class="cart-product">
-									<span>$26.00</span>
-								</div>
-							</div>
-						</div>
-						<div class="cart-details">
-							<div class="col s5">
-								<div class="cart-product">
-									<h5>Total Pricey</h5>
-								</div>
-							</div>
-							<div class="col s7">
-								<div class="cart-product">
-									<span>$26.00</span>
-								</div>
-							</div>
-						</div>
-						<div class="cart-details">
-							<div class="col s5">
-								<div class="cart-product">
-									<h5>Action</h5>
-								</div>
-							</div>
-							<div class="col s7">
-								<div class="cart-product">
-									<a href=""><i class="fa fa-trash"></i></a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<button class="button-default">Checkout</button>
-			</div>
-			<div class="cart-shipping">
-				<h4>Estimate Shipping and Tax</h4>
-				<div class="cart-shipping-content">
-					<h5>Country*</h5>
-					 <select class="browser-default">
-					    <option>Afghanistan</option>
-						<option>Albania</option>
-						<option>Algeria</option>
-					  </select>
-					<h5>State/Province</h5>
-					<select class="browser-default">
-						<option>Afghanistans</option>
-						<option>Albania</option>
-						<option>Algeria</option>
-					</select>
-					<h5>Zip/Portal Code</h5>
-					<input type="text">
-					<button class="button-default">Get a Quote</button>
-				</div>
-			</div>
-			<div class="cart-discount">
-				<h4>Discount Codes</h4>
-				<div class="cart-discount-content">
-					<h5>Enter your coupon code in below</h5>
-					<input type="text">
-					<button class="button-default">Apply Coupon</button>
-				</div>
-			</div>
-			<div class="cart-total">
-				<h4>Shopping Cart Total</h4>
-				<table>
-					<thead>
-						<tr>
-							<td>Subtotal</td>
-							<td>Total</td>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>$43.00</td>
-							<td>$43.00</td>
-						</tr>
-					</tbody>
-				</table>
-				<button class="button-default">Process to Checkout</button>
-			</div>
-		</div>
-	</div>
-	<!-- end cart -->
+    <div id="fakeLoader"></div>
+    <div class="footer">
+        <div class="container">
+            <div class="about-us-foot">
+                <h6>NATIKA</h6>
+                <p>Semi Jóias e Acessórios de qualidade para você se sentir especial.</p>
+            </div>
+            <div class="social-media">
+                <a href=""><i class="fa fa-facebook"></i></a>
+                <a href=""><i class="fa fa-instagram"></i></a>
+                <a href=""><i class="fa fa-whatsapp"></i></a>
+            </div>
+            <div class="copyright">
+                <span>© 2025 Natika. Todos os direitos reservados.</span>
+            </div>
+        </div>
+    </div>
 
-	<!-- loader -->
-	<div id="fakeLoader"></div>
-	<!-- end loader -->
-	
-	<!-- footer -->
-	<div class="footer">
-		<div class="container">
-			<div class="about-us-foot">
-				<h6>MATJAR</h6>
-				<p>is a lorem ipsum dolor sit amet, consectetur adipisicing elit consectetur adipisicing elit.</p>
-			</div>
-			<div class="social-media">
-				<a href=""><i class="fa fa-facebook"></i></a>
-				<a href=""><i class="fa fa-twitter"></i></a>
-				<a href=""><i class="fa fa-google"></i></a>
-				<a href=""><i class="fa fa-linkedin"></i></a>
-				<a href=""><i class="fa fa-instagram"></i></a>
-			</div>
-			<div class="copyright">
-				<span>© 2018 All Right Reserved</span>
-			</div>
-		</div>
-	</div>
-	<!-- end footer -->
-	
-	<!-- scripts -->
-	<script src="js/jquery.min.js"></script>
-	<script src="js/materialize.min.js"></script>
-	<script src="js/owl.carousel.min.js"></script>
-	<script src="js/fakeLoader.min.js"></script>
-	<script src="js/main.js"></script>
-
+    <script src="js/jquery.min.js"></script>
+    <script src="js/materialize.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/fakeLoader.min.js"></script>
+    <script src="js/main.js"></script>
+    <!-- SDK do Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <script>
+        // Configuração do Supabase
+		const supabaseUrl = 'https://unwzexiljnemttknupwr.supabase.co';
+		const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVud3pleGlsam5lbXR0a251cHdyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTU1NTIxNzIsImV4cCI6MjA3MTEyODE3Mn0.5QSJF1ktICzTkB1AjVIv5fgvs9M6K9ECchYwlsI2xdA';
+        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        
+        // Função para formatar preços
+        function formatPrice(price) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(price);
+        }
+        
+        // Função para carregar os itens do carrinho
+        async function loadCartItems() {
+            // Em uma implementação real, você buscaria os itens do carrinho do Supabase
+            // Para este exemplo, usaremos dados mockados
+            const cartItems = JSON.parse(localStorage.getItem('natika_cart')) || [];
+            
+            updateCartCount(cartItems);
+            
+            if (cartItems.length === 0) {
+                document.getElementById('empty-cart-message').style.display = 'block';
+                document.getElementById('cart-summary').style.display = 'none';
+                return;
+            }
+            
+            document.getElementById('empty-cart-message').style.display = 'none';
+            document.getElementById('cart-summary').style.display = 'block';
+            
+            const cartContainer = document.getElementById('cart-items-container');
+            cartContainer.innerHTML = '';
+            
+            let subtotal = 0;
+            
+            cartItems.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                
+                const cartItemElement = document.createElement('div');
+                cartItemElement.className = 'cart-item';
+                cartItemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                    <div class="cart-item-details">
+                        <div class="cart-item-title">${item.name}</div>
+                        <div class="cart-item-price">${formatPrice(item.price)}</div>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="updateQuantity(${index}, ${item.quantity - 1})">-</button>
+                            <input type="number" class="quantity-input" value="${item.quantity}" min="1" onchange="updateQuantityInput(${index}, this.value)">
+                            <button class="quantity-btn" onclick="updateQuantity(${index}, ${item.quantity + 1})">+</button>
+                        </div>
+                    </div>
+                    <div class="cart-item-total">${formatPrice(itemTotal)}</div>
+                    <button class="remove-item" onclick="removeItem(${index})">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                `;
+                
+                cartContainer.appendChild(cartItemElement);
+            });
+            
+            // Calcular totais
+            const shipping = subtotal > 200 ? 0 : 15; // Frete grátis para compras acima de R$ 200
+            const total = subtotal + shipping;
+            
+            document.getElementById('subtotal').textContent = formatPrice(subtotal);
+            document.getElementById('shipping').textContent = formatPrice(shipping);
+            document.getElementById('total').textContent = formatPrice(total);
+        }
+        
+        // Atualizar contador do carrinho
+        function updateCartCount(cartItems) {
+            const totalItems = cartItems.reduce((total, item) => total + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+            
+            // Atualizar também no localStorage para outras páginas
+            localStorage.setItem('natika_cart_count', totalItems);
+        }
+        
+        // Atualizar quantidade pelo botão
+        function updateQuantity(index, newQuantity) {
+            if (newQuantity < 1) newQuantity = 1;
+            
+            const cartItems = JSON.parse(localStorage.getItem('natika_cart')) || [];
+            cartItems[index].quantity = newQuantity;
+            localStorage.setItem('natika_cart', JSON.stringify(cartItems));
+            
+            loadCartItems();
+        }
+        
+        // Atualizar quantidade pelo input
+        function updateQuantityInput(index, value) {
+            const newQuantity = parseInt(value) || 1;
+            updateQuantity(index, newQuantity);
+        }
+        
+        // Remover item do carrinho
+        function removeItem(index) {
+            const cartItems = JSON.parse(localStorage.getItem('natika_cart')) || [];
+            cartItems.splice(index, 1);
+            localStorage.setItem('natika_cart', JSON.stringify(cartItems));
+            
+            loadCartItems();
+        }
+        
+        // Inicializar a página
+        document.addEventListener('DOMContentLoaded', function() {
+            // Inicializar componentes do Materialize
+            var elems = document.querySelectorAll('select');
+            var instances = M.FormSelect.init(elems);
+            
+            // Carregar itens do carrinho
+            loadCartItems();
+        });
+    </script>
+	<script src="js/carrinho.js"></script>
+	<script src="js/cart-page.js"></script>
 </body>
 </html>
+[file content end]
