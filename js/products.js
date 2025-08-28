@@ -9,6 +9,9 @@ const productsPerPage = 12;
 let allProducts = [];
 let filteredProducts = [];
 
+// Flag para controlar se o evento já foi configurado
+let cartEventInitialized = false;
+
 // Função para formatar preço
 function formatPrice(price) {
     if (!price) return 'R$ 0,00';
@@ -16,6 +19,25 @@ function formatPrice(price) {
         style: 'currency',
         currency: 'BRL'
     });
+}
+
+// Função para renderizar avaliação em estrelas
+function renderRating(rating) {
+    const fullStars = Math.floor(rating);
+    const hasHalfStar = rating % 1 >= 0.5;
+    let starsHtml = '';
+    
+    for (let i = 0; i < 5; i++) {
+        if (i < fullStars) {
+            starsHtml += '<i class="fa fa-star"></i>';
+        } else if (i === fullStars && hasHalfStar) {
+            starsHtml += '<i class="fa fa-star-half-o"></i>';
+        } else {
+            starsHtml += '<i class="fa fa-star-o"></i>';
+        }
+    }
+    
+    return starsHtml;
 }
 
 // Função para renderizar produtos
@@ -35,6 +57,9 @@ function renderProducts(products) {
         productsContainer.innerHTML = '<p class="no-products">Nenhum produto encontrado</p>';
         return;
     }
+    
+    // Usar DocumentFragment para melhor performance
+    const fragment = document.createDocumentFragment();
     
     products.forEach(produto => {
         const productCard = document.createElement('div');
@@ -57,6 +82,11 @@ function renderProducts(products) {
                     ${isNew ? '<span class="new-badge">Novo</span>' : ''}
                     <h5><a href="sobreprod.html?id=${produto.id || ''}">${produto.titulo || 'Produto sem nome'}</a></h5>
                     <h6 class="price">${formatPrice(preco)}</h6>
+                    <div class="details">
+                        ${produto.descricao ? `<div>${produto.descricao}</div>` : ''}
+                        ${produto.cor_banho ? `<div>Banho: ${produto.cor_banho}</div>` : ''}
+                        ${produto.tempo_garantia ? `<div>Garantia: ${produto.tempo_garantia} meses</div>` : ''}
+                    </div>
                     <div class="${estoqueClass}">${estoqueText}</div>
                     <div class="rating">
                         ${renderRating(produto.avaliacao || 0)}
@@ -68,27 +98,91 @@ function renderProducts(products) {
             </div>    
         `;
         
-        productsContainer.appendChild(productCard);
+        fragment.appendChild(productCard);
+    });
+    
+    productsContainer.appendChild(fragment);
+    
+    // Configurar eventos dos botões do carrinho (apenas uma vez)
+    if (!cartEventInitialized) {
+        initializeCartEvents();
+        cartEventInitialized = true;
+    }
+}
+
+// Configurar eventos dos botões do carrinho (apenas uma vez)
+function initializeCartEvents() {
+    console.log('Inicializando eventos do carrinho...');
+    
+    // Usar event delegation no container principal
+    document.addEventListener('click', function(event) {
+        // Verificar se o clique foi em um botão "Adicionar ao carrinho" ou em seus filhos
+        const addToCartButton = event.target.closest('.add-to-cart');
+        
+        if (addToCartButton) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const id = addToCartButton.getAttribute('data-id');
+            const name = addToCartButton.getAttribute('data-name');
+            const price = parseFloat(addToCartButton.getAttribute('data-price'));
+            const image = addToCartButton.getAttribute('data-image');
+            
+            // Verificar se a função addToCart existe (do carrinho.js)
+            if (typeof addToCart === 'function') {
+                addToCart(id, name, price, image);
+            } else {
+                console.error('Função addToCart não encontrada. Verifique se carrinho.js foi carregado primeiro.');
+                // Fallback: função local temporária para evitar erro
+                fallbackAddToCart(id, name, price, image);
+            }
+        }
     });
 }
 
-// Função auxiliar para renderizar avaliação em estrelas
-function renderRating(rating) {
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 >= 0.5;
-    let starsHtml = '';
+// Função fallback caso carrinho.js não esteja carregado
+function fallbackAddToCart(id, name, price, image) {
+    console.warn('Usando fallbackAddToCart - carrinho.js não carregado');
     
-    for (let i = 0; i < 5; i++) {
-        if (i < fullStars) {
-            starsHtml += '<i class="fa fa-star"></i>';
-        } else if (i === fullStars && hasHalfStar) {
-            starsHtml += '<i class="fa fa-star-half-o"></i>';
-        } else {
-            starsHtml += '<i class="fa fa-star-o"></i>';
-        }
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+    // Verificar se o produto já está no carrinho
+    const existingItemIndex = cart.findIndex(item => item.id === id);
+    
+    if (existingItemIndex !== -1) {
+        cart[existingItemIndex].quantity += 1;
+    } else {
+        cart.push({
+            id: id,
+            name: name,
+            price: price,
+            image: image,
+            quantity: 1
+        });
     }
     
-    return starsHtml;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    
+    if (typeof M !== 'undefined') {
+        M.toast({html: 'Produto adicionado ao carrinho!'});
+    }
+    
+    const button = document.querySelector(`.add-to-cart[data-id="${id}"]`);
+    if (button) {
+        button.classList.add('added');
+        setTimeout(() => button.classList.remove('added'), 1000);
+    }
+}
+
+// Função para atualizar contador do carrinho
+function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const totalItems = cart.reduce((total, item) => total + item.quantity, 0);
+    const cartCount = document.getElementById('cart-count');
+    if (cartCount) {
+        cartCount.textContent = totalItems;
+    }
 }
 
 // Função para carregar mais produtos
@@ -100,48 +194,34 @@ function loadMoreProducts() {
     
     renderProducts(productsToShow);
     
-    if (endIndex >= filteredProducts.length) {
-        document.getElementById('load-more-button').style.display = 'none';
+    const loadMoreBtn = document.getElementById('load-more-button');
+    if (loadMoreBtn && endIndex >= filteredProducts.length) {
+        loadMoreBtn.style.display = 'none';
     }
 }
 
-// Função para ordenar produtos
-function sortProducts(sortBy) {
+// Função para filtrar produtos
+function filterProducts(category, sortBy) {
     currentPage = 1;
     
-    if (!filteredProducts) return;
+    // Filtrar por categoria
+    if (category) {
+        filteredProducts = allProducts.filter(product => 
+            product.categoria && product.categoria.toLowerCase() === category.toLowerCase()
+        );
+    } else {
+        filteredProducts = [...allProducts];
+    }
     
-    switch(sortBy) {
-        case '1': // Novidades
-            filteredProducts.sort((a, b) => 
-                new Date(b.created_at || 0) - new Date(a.created_at || 0)
-            );
-            break;
-        case '2': // Mais vendidos
-            // Adicionando vendas como 0 por padrão, já que não existe essa coluna no banco
-            filteredProducts.sort((a, b) => 
-                (b.vendas || 0) - (a.vendas || 0)
-            );
-            break;
-        case '3': // Melhores avaliações
-            filteredProducts.sort((a, b) => 
-                (b.avaliacao || 0) - (a.avaliacao || 0)
-            );
-            break;
-        case '4': // Menor preço
-            filteredProducts.sort((a, b) => 
-                (a.valor_varejo || 0) - (b.valor_varejo || 0)
-            );
-            break;
-        case '5': // Maior preço
-            filteredProducts.sort((a, b) => 
-                (b.valor_varejo || 0) - (a.valor_varejo || 0)
-            );
-            break;
-        default:
-            filteredProducts.sort((a, b) => 
-                (a.titulo || '').localeCompare(b.titulo || '')
-            );
+    // Ordenar
+    if (sortBy === 'menor-preco') {
+        filteredProducts.sort((a, b) => 
+            (a.valor_varejo || 0) - (b.valor_varejo || 0)
+        );
+    } else if (sortBy === 'maior-preco') {
+        filteredProducts.sort((a, b) => 
+            (b.valor_varejo || 0) - (a.valor_varejo || 0)
+        );
     }
     
     const initialProducts = filteredProducts.slice(0, productsPerPage);
@@ -226,20 +306,20 @@ document.addEventListener('DOMContentLoaded', function() {
             throw new Error('Falha na inicialização do Supabase');
         }
         
-        // Inicializar os selects do Materialize
-        const selectElems = document.querySelectorAll('select');
-        if (selectElems.length > 0 && typeof M !== 'undefined') {
-            M.FormSelect.init(selectElems);
-        }
+        // Atualizar contador do carrinho
+        updateCartCount();
         
         // Buscar produtos
         fetchProducts();
         
-        // Event listener para ordenação
-        const sortSelect = document.getElementById('sort-select');
-        if (sortSelect) {
-            sortSelect.addEventListener('change', function() {
-                sortProducts(this.value);
+        // Event listener para aplicar filtros
+        const applyButton = document.getElementById('apply-filters');
+        if (applyButton) {
+            applyButton.addEventListener('click', function() {
+                const category = document.getElementById('category-select').value;
+                const sortBy = document.getElementById('sort-select').value;
+                
+                filterProducts(category, sortBy);
             });
         }
         
@@ -249,6 +329,20 @@ document.addEventListener('DOMContentLoaded', function() {
             loadMoreBtn.addEventListener('click', function(e) {
                 e.preventDefault();
                 loadMoreProducts();
+            });
+        }
+        
+        // Permitir aplicar filtros pressionando Enter nos selects
+        const categorySelect = document.getElementById('category-select');
+        const sortSelect = document.getElementById('sort-select');
+        
+        if (categorySelect && sortSelect && applyButton) {
+            [categorySelect, sortSelect].forEach(select => {
+                select.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        applyButton.click();
+                    }
+                });
             });
         }
         
